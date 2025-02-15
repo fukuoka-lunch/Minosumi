@@ -1,0 +1,951 @@
+@charset "UTF-8";
+
+/*＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ 全体設定ここから ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝*/
+
+/* テキストの自動拡大を無効化 */
+body {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+/* 基本設定*/
+* {
+    margin: 0;
+    list-style: none;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+hr {
+    border: none;
+    border-top: dotted 10px #fff;
+}
+
+.small {
+    font-size: 23px;
+}
+
+
+/* アンカータグの装飾 */
+a#a-deco {
+    font-weight: bold;
+    text-decoration: underline #000;
+}
+
+
+/* フォント設定 */
+@font-face {
+    /*フォントの名前*/
+    font-family: "Knewave";
+    /*フォントファイルへのパス（複数指定の場合、上から順に読み込まれる）*/
+    src: url("./font/Knewave-Regular.woff2") format("woff2"),
+        url("./font/Knewave-Regular.woff") format("woff");
+}
+
+
+
+/* グリッド設定 */
+body {
+    display: grid;
+    grid-template-columns: 20px 1fr 20px;
+    grid-template-rows:
+        [head] 100px [title] 547px [search] auto [recommend] auto
+        /*１グリッド追加*/
+        [foot] 250px;
+    grid-row-gap: 20px;
+    row-gap: 20px;
+    font-family: "游ゴシック", "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    background-color: #fef7e0;
+}
+
+body>* {
+    grid-column: 2 / -2;
+}
+
+header.header {
+    grid-column: 1 / -1;
+}
+
+footer.footer {
+    grid-column: 1 / -1;
+}
+
+/* ＝＝＝＝＝＝＝＝＝＝＝＝＝ ヘッダーここから ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: 100px;
+    /* background-color: transparent; */
+}
+
+/* サイト内リンク遷移時にヘッダーに隠れない様にする */
+#search-top::before {
+    content: "";
+    display: block;
+    height: 120px;
+    /* ずらしたい高さ */
+    margin-top: -120px;
+    /* heightに対するネガティブマージン */
+    visibility: hidden;
+}
+
+/* サイトロゴ */
+.site {
+    font-family: 'Knewave', cursive;
+    font-size: clamp(23px, 5vw, 40px);
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 6vw;
+    padding-right: 6vw;
+    background-color: #fef7e0;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+}
+
+.header-container::after {
+    row-gap: 0;
+}
+
+.header-container>.site {
+    margin-right: auto;
+}
+
+/* サイト内検索：追加する時に有効にする */
+/* .navbtn1 {
+    padding: 0;
+    margin-right: 0.5em;
+    outline: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #777777;
+    font-size: 30px;
+    display: revert;
+}
+
+.open .navbtn1 {
+    display: none;
+}
+
+.open .navbtn1 .fa-magnifying-glass {
+    display: revert;
+} */
+
+/* ＝＝＝＝＝＝＝＝＝＝＝＝＝ ヘッダーここまで ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ */
+
+/* ＝＝＝＝＝＝＝＝＝＝＝＝＝ ハンバーガーメニュー・ヘッダーメニューここから ＝ */
+
+/* ナビゲーションの現在地を表示 */
+.nav ul li.current a {
+    font-weight: bold;
+    /* border-bottom: dotted #ef9504 6px; */
+    /* background: linear-gradient(transparent 0%, transparent 88%, #ffc464 12%, #ffc464 100%); */
+    /* background: #ffc464; */
+}
+
+.nav ul li a:hover {
+    font-weight: bold;
+}
+
+/* ハンバーガーメニュー */
+.navbtn {
+    padding: 0;
+    outline: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #555;
+    font-size: 30px;
+}
+
+.open .navbtn {
+    z-index: 110;
+    color: #ffffff;
+}
+
+/* ハンバーガーメニューアイコン */
+.navbtn .fa-bars {
+    display: revert;
+}
+
+.open .navbtn .fa-bars {
+    display: none;
+}
+
+/* 閉じる×アイコン */
+.navbtn .fa-times {
+    display: none;
+}
+
+.open .navbtn .fa-times {
+    display: revert;
+    /* margin-right: 6vw; */
+}
+
+.nav ul li#sita1 {
+    grid-column: 3 / 4;
+}
+
+.nav ul li#sita2 {
+    grid-column: 4 / 5;
+}
+
+.nav ul li#sita1 a,
+.nav ul li#sita2 a {
+    color: #777;
+}
+
+
+/* ナビゲーションメニュー：PC */
+@media (min-width: 1040px) {
+
+    .navbtn,
+    .navbtn1 {
+        display: none;
+    }
+
+    .nav ul {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        grid-template-rows: auto auto;
+        gap: 5px 5px;
+        color: #707070;
+        align-items: center;
+        padding: 0;
+        justify-self: stretch;
+        width: 420px;
+    }
+
+    .nav ul li a {
+        font-size: 17px;
+    }
+
+    .nav ul li#sita1 a,
+    .nav ul li#sita2 a {
+        font-size: 14px;
+    }
+
+    .top #search-box a {
+        min-width: 200px;
+    }
+
+}
+
+@media (max-width :1040px) {
+    .nav {
+        position: fixed;
+        /* inset:top,right,bottom,left全方向の設定。 */
+        inset: 0 -100% 0 100%;
+        z-index: 100;
+        /* 半透明な黒茶色 */
+        background-color: #333333e6;
+        transition: transform 0.3s;
+    }
+
+    .open .nav {
+        transform: translate(-100%, 0);
+    }
+
+    .open body {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .nav ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        gap: 28px;
+        color: #707070;
+        padding: 0;
+    }
+
+    .nav ul li a,
+    .nav ul li#sita1 a,
+    .nav ul li#sita2 a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: clamp(16px, 2vw, 20px);
+        font-family: "Raleway", sans-serif;
+    }
+
+    .nav ul li a:hover,
+    .nav ul li#sita1 a:hover,
+    .nav ul li#sita2 a:hover {
+        color: #ef9504;
+    }
+
+}
+
+@media (max-width :768px) {
+    .nav {
+        padding-right: 10vw;
+    }
+
+    .nav ul {
+        align-items: flex-end;
+        height: 700px;
+    }
+}
+
+
+
+/* ＝＝＝＝＝＝＝＝＝＝＝＝＝ ハンバーガーメニューここまで ＝＝＝＝＝＝＝＝＝＝ */
+
+/* ＝＝＝＝＝＝＝＝＝＝＝＝＝ フッターここから ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ */
+.footer {
+    grid-row: foot;
+    padding: 1.5em 0;
+    background-color: #ffffff;
+    background-size: cover;
+    color: #000000;
+    font-size: 13px;
+    font-family: "Raleway", sans-serif;
+}
+
+ul.footer-menu li a {
+    color: #777777;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+ul.footer-menu li a:hover {
+    color: #ef9504;
+}
+
+.footer-container {
+    display: grid;
+    gap: 25px;
+    justify-items: center;
+    padding-right: 6vw;
+    padding-left: 6vw;
+}
+
+@media(min-width: 768px) {
+    .footer-container {
+        grid-column: 3 / -3;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto auto;
+        gap: 20px;
+        /* margin-bottom: 10em; */
+    }
+
+    .footer-container>*:not(.footer-sns) {
+        justify-self: start;
+    }
+
+    .footer-container>.footer-sns {
+        grid-column: 2;
+        grid-row: 1/4;
+        justify-self: end;
+        align-self: center;
+    }
+}
+
+/* フッター：SNSメニュー */
+.footer-sns {
+    display: flex;
+    gap: 24px;
+    font-size: 24px;
+    padding: 0;
+}
+
+.footer-sns a {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    aspect-ratio: 1/1;
+    /* background-color: #777777; */
+    background-color: #FC6467;
+    color: #ffffff;
+    clip-path: circle(50%);
+    text-decoration: none;
+}
+
+@supports not (aspect-ratio: 1/1) {
+    .footer-sns a {
+        height: 36px;
+    }
+}
+
+/* フッター；テキストメニュー */
+.footer-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 0;
+}
+
+/* フッターのバー */
+body::after {
+    content: "";
+    background-color: #eeeeee;
+    grid-column: 2 / -2;
+    grid-row: foot;
+    z-index: -1;
+}
+
+/* ＝＝＝＝＝＝＝＝＝＝＝＝＝ フッターここまで ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ */
+
+/* ＝＝＝＝＝＝＝＝＝＝ index.htmlここから ＝＝＝＝＝＝＝＝＝＝＝＝＝ */
+/* ヒーローイメージ*/
+figure.hero {
+    grid-column: 1 / -1;
+    grid-row: title;
+    margin-top: -20px;
+}
+
+figure.hero img {
+    height: 567px;
+    object-fit: cover;
+    vertical-align: bottom;
+    z-index: -1;
+    position: relative;
+}
+
+/* TOPページ：タイトル */
+/* .top h1 {
+    display: grid;
+    grid-row: title;
+    justify-self: center;
+    align-self: center;
+    color: #313131;
+    font-size: 23px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    font-family: "Knewave", "游ゴシック", "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+} */
+
+#more {
+    text-decoration: underline #777 1px solid;
+    grid-column: 2/3;
+    font-size: 1.1em;
+}
+
+.post .side aside ul li#more {
+    text-decoration: underline #777 1px solid;
+    grid-column: 2/3;
+    font-size: 1.1em;
+}
+
+
+/* トップページ：記事一覧 
+　＆記事ページ：reccomend記事一覧 */
+aside ul {
+    grid-row: search;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1.5em 1em;
+    gap: 1.5em 1em;
+}
+
+.top #search {
+    grid-row: search;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    gap: 10px;
+    margin-bottom: 3vw;
+}
+
+.top #search-box {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    grid-gap: 20px 20px;
+    gap: 20px 20px;
+}
+
+
+.top #recommend {
+    grid-row: recommend;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 4vw 2vw;
+    gap: 4vw 2vw;
+}
+
+section a,
+aside a {
+    color: #000000;
+}
+
+section a:hover,
+aside a:hover {
+    text-decoration: underline;
+}
+
+section h3,
+aside h3 {
+    font-size: 14px;
+}
+
+.side aside p {
+    text-align: left;
+}
+
+section h2 {
+    grid-column: 1/-1;
+    font-family: 'Knewave', cursive;
+    font-size: 30px;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    font-weight: normal;
+    text-align: center;
+}
+
+section h2.target-title {
+    font-family: "游ゴシック", "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+
+h2.target-title a{
+    text-decoration: none;
+    color: #000;
+}
+
+/* ボタン（白色） */
+.button-gray a {
+    text-align: center;
+    list-style-type: none;
+    justify-self: center;
+    color: #000 !important;
+    border: solid 2px #000000;
+    margin: 1.3em auto 1.3em auto;
+    padding: 0.3em 0;
+    display: block;
+    margin-top: 10px;
+    border-radius: 5px;
+    width: 300px;
+    font-weight: bold;
+    background-color: #ffffff;
+    text-decoration: none !important;
+}
+
+.button-gray a:hover {
+    background-color: rgba(50, 50, 50, 0.12);
+}
+
+/* ボタン（白色 幅広ver） */
+.button-gray-wide a {
+    text-align: center;
+    list-style-type: none;
+    color: #000000;
+    border: solid 2px #888;
+    padding: 1.3em;
+    display: block;
+    border-radius: 5px;
+    min-width: 145px;
+    font-weight: bold;
+    background-color: #ffffff;
+}
+
+
+.button-gray-wide a:hover {
+    /* background-color: rgba(50, 50, 50, 0.12); */
+    background-color: rgba(255, 189, 80, 0.8);
+    text-decoration: none;
+}
+
+
+
+/* ＝＝＝＝＝＝＝＝＝＝ 記事ページ（.postが付与されたページ）ここから ＝＝＝＝＝＝＝＝＝＝＝＝＝ */
+/* 記事ページのbody */
+.post {
+    grid-template-rows:
+        [head] 100px [kiji] auto [submenu] auto [foot] 250px;
+}
+
+/* 記事ページ：記事 */
+.post article {
+    grid-row: kiji;
+}
+
+.post article h1 {
+    font-family: 'Knewave', "游ゴシック", "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    font-size: 30px;
+    margin-top: 0.2em;
+}
+
+.post article>* {
+    margin-top: 1em;
+    margin-bottom: 0.8em;
+    display: block;
+}
+
+/* 記事ページ：バー */
+.post::before {
+    content: "";
+    background: #eeeeee;
+    height: 2px;
+    grid-column: 1 / -1;
+    grid-row: kiji;
+    margin-top: -20px;
+}
+
+/* 記事ページ；時計アイコン */
+.fa-clock {
+    color: #888888;
+    margin-right: 5px;
+}
+
+/* 記事ページ：サブメニュー */
+.post div.side {
+    grid-row: submenu;
+}
+
+aside {
+    border: solid 1px #dddddd;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    transform: none;
+    border-radius: 10px;
+}
+
+aside h2 {
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    color: #888888;
+    font-weight: normal;
+    font-family: "Raleway", sans-serif;
+}
+
+aside p {
+    font-size: 14px;
+}
+
+aside:nth-child(2) img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+aside ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* ＝＝＝＝＝＝＝＝＝＝ 記事ページ（.postが付与されたページ）ここまで ＝＝＝＝＝＝＝＝＝＝＝＝＝ */
+
+/* ＝＝＝＝＝＝＝＝＝＝ ルーレットページここから ＝＝＝＝＝＝＝＝＝＝＝＝＝ */
+.jump {
+    display: block;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    max-width: 300px;
+}
+
+.ru-retto {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    padding-bottom: 1rem;
+    width: 90%;
+}
+
+.omikuji_name {
+    font-size: 18px;
+    color: #666;
+    height: 3em;
+    position: relative;
+    display: block;
+    top: 50%;
+    min-width: 120px;
+    max-width: 100%;
+    background: #fff;
+    text-align: left;
+    border-radius: 20px;
+    padding: 0.7rem;
+    border: 3px solid #ccc;
+}
+
+.omikuji_name:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -15px;
+    border: 15px solid transparent;
+    border-top: 15px solid #aaa;
+}
+
+.omikuji_img {
+    display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 20px;
+    max-width: 300px;
+}
+
+.omikuji_text {
+    padding-top: 1.5rem;
+    color: #333;
+    font-size: 13px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.btn_design2 {
+    width: 230px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    padding: 15px 10px;
+    background-color: #fab952;
+    text-align: center;
+    color: #000000;
+    border: #000000 solid 2px;
+    border-bottom: 8px solid #000000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* マウスオーバー時 */
+.btn_design2:hover {
+    background-color: rgba(250, 180, 82, 0.5);
+}
+
+/* ＝＝＝＝＝＝＝＝＝＝ ルーレットページここまで ＝＝＝＝＝＝＝＝＝＝＝＝＝ */
+
+/* ＝＝＝＝＝＝＝＝＝＝ GoogleMap設定ここから ＝＝＝＝＝＝＝＝＝＝＝＝＝ */
+
+/* Google Mapをレスポンシブ対応に
+参考：https://web-dev.tech/front-end/css/embed-google-map-with-proportion/ */
+.map {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 75%;
+    /* 比率を100:75に固定 */
+}
+
+/* Google Mapのiframe */
+.map iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ＝＝＝＝＝＝＝＝＝＝ GoogleMap設定ここまで ＝＝＝＝＝＝＝＝＝＝＝＝＝ */
+
+
+/* トップページ以外の共通デコレーション */
+.common-deco h2 {
+    border-bottom: 1px solid #444444;
+    margin-top: 1.7em !important;
+}
+
+.common-deco a{
+    font-weight: bold;
+    color: navy;
+    text-decoration: underline;
+}
+
+/* SHOPS:ページ内リンク遷移時にヘッダーに隠れない様にする */
+h2#map-search::before,
+h2#all-shops::before,
+.mokuji-tag::before {
+    content: "";
+    display: block;
+    height: 120px;
+    /* ずらしたい高さ */
+    margin-top: -120px;
+    /* heightに対するネガティブマージン */
+    visibility: hidden;
+}
+
+.top #search-box a {
+    /* width: 100%; */
+    padding: auto;
+    margin: 0;
+}
+
+.top #search-box img {
+    width: 35%;
+}
+
+/* ====PC版の設定ここから==== */
+
+@media(min-width: 768px) {
+
+    /* PC版：ページ全体の設定 */
+    body {
+        grid-template-columns: 0.2fr repeat(6, 1fr) 0.2fr;
+        grid-column-gap: 5%;
+        column-gap: 5%;
+        grid-template-rows:
+            [head] 100px [title sub] auto [search] auto [recommend] auto [foot] 150px;
+    }
+
+    /* PC版：ヒーローイメージ */
+    figure.hero {
+        grid-row: title;
+        margin-top: -20px;
+    }
+
+    figure.hero img {
+        object-fit: cover;
+        justify-content: center;
+        align-content: center;
+    }
+
+    /* PC版：タイトル */
+    .top h1 {
+        grid-row: title;
+        grid-column: 3 / -3;
+        max-width: 600px;
+        font-size: clamp(20px, 3vw, 35px);
+        justify-self: center;
+        align-self: center;
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    footer.footer {
+        height: 140px;
+    }
+
+    /* PC版：記事一覧 */
+    .top #recommend {
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 10px 1vw;
+        gap: 10px 1vw;
+    }
+
+    .top #search-box {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+
+    .top #search-box a {
+        padding: auto;
+        margin: 0;
+    }
+
+    .top #search-box img {
+        width: 30%;
+    }
+
+    .button-gray-wide a {
+        border-radius: 5px;
+        font-weight: bold;
+        min-width: 145px;
+    }
+
+    #index-filter-search {
+        grid-column: 2 / 3;
+    }
+
+    #index-map-search {
+        grid-column: 3 / 4;
+    }
+
+    #index-roulette {
+        grid-column: 4 / 5;
+    }
+
+    /* PC版：記事ページ */
+    .post {
+        grid-template-rows:
+            [head] 100px [kiji submenu] auto [foot] 150px;
+    }
+
+    /* PC版：記事ページ；記事 */
+    .post article {
+        grid-column: 2 / span 4;
+    }
+
+    .post article h1 {
+        font-size: 40px;
+        margin-bottom: 0.3em;
+        margin-top: 0.3em;
+    }
+
+    .post article p {
+        font-size: 18px;
+    }
+
+    /* PC版：記事ページ；サブメニュー */
+    .post div.side {
+        grid-column: 6 / span 2;
+    }
+
+    /* PC版：記事ページ；バー */
+    .post::before {
+        margin-top: -20px;
+    }
+
+    /* PC版：記事ページ；フッター */
+    .post footer {
+        grid-column: 2 / span -2;
+    }
+
+    .button-violet a {
+        max-width: 400px;
+    }
+
+    /* PC版；map */
+    .map {
+        padding-top: 75%;
+        /* 比率を4:3に固定 */
+    }
+
+    /*PC版：ルーレット */
+    .omikuji_name {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    /* more */
+    #more {
+        text-decoration: underline #777 1px solid;
+        grid-column: 4/ 5;
+    }
+
+    /* ====PC版の設定ここまで==== */
+}
+
+@media(min-width:1040px) {
+    .ru-retto {
+        background-image: url(./img/roulette-img.png);
+        background-repeat: no-repeat;
+        background-position: 50% 100%;
+    }
+
+    /* ヘッダー下の影 */
+    header {
+        box-shadow: 0 3.5px rgba(0, 0, 0, 0.05);
+
+    }
+
+    header.header {
+        background-color: rgb(254, 247, 224);
+    }
+}
