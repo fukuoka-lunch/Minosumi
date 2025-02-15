@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+article#column section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 0.4em 0px;
+    gap: 0.4em 0px;
+    margin: 0;
+    margin-top: 1em;
+}
+
+article#column img {
+    border-radius: 20px 0 0 20px;
+}
+
+article#column h3 {
+    font-size: 13px;
+}
+
+article#column section p {
+    font-size: 0.7rem;
+}
+
+article#column a{
+    text-decoration: none;
+    color: #000;
+}
+
+.column-pic {
+    grid-column: 1 / span 2;
+}
+
+.column-kiji {
+    grid-column: 3 / span 3;
+    background-color: #fff;
+    border-radius: 0 20px 20px 0;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    aspect-ratio: 2/1;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+a.column-kiji:hover {
+    text-decoration: none;
+}
+
+.post figure figcaption {
+    text-align: center;
+}
+
+.mokuji *{
+    padding-left: 2em;
+    font-weight: bold;
+    line-height: 2.2em;
+    color: navy;
+}
+
+.mokuji a{
+    text-decoration: underline;
+}
+
+@media(min-width:768px) {
+    article#column section {
+        grid-gap: 1em 0px;
+        gap: 1em 0px;
+    }
+
+    article#column h3 {
+        font-size: 1.25rem;
+    }
+
+    article#column section p {
+        font-size: 0.8rem;
+    }
+}
